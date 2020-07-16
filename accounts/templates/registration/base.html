@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+		<style type="text/css">
+        body{ background-image: url(https://c.pxhere.com/photos/76/aa/field_football_game_grass_ground_soccer_sport-955613.jpg!d); }
+		</style>
+		<title>VFF</title>
+	</head>
+	<body>
+
+		<div class="container" style="margin-top: 5%;">
+			<div class="row">
+				<div class="col-md-3"> </div>
+				<div class="col-md-6">
+					<div class="col-sm-12">
+						<div class="hiddentabs" style="display: none;">
+						<ul class="nav nav-tabs">
+							<li class="login">
+								<a href="#login" data-toggle="tab">Login</a>
+							</li>
+							<li class="signup">
+								<a href="#signup" data-toggle="tab">Sign Up</a>
+							</li>
+						</div>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="login">
+								<form action="#">
+									<div class="form-group">
+										<input type="text" class="form-control" id="email" placeholder="email address">
+									</div>
+									<div class="form-group">
+										<input type="password" class="form-control" id="pwd" placeholder="password">
+									</div>
+									<button type="submit" class="btn btn-primary btn-block">Login</button>
+									<div class="row mt-2">
+										<div class="col-sm-6">
+											<button type="submit" class="btn-link btn btn-block">Forgot password?</button>
+										</div>
+										<div class="col-sm-6">
+											<a href="javascript: ;" id="signuplink" class="btn btn-danger btn-block reglink"> Not registered? </a>
+										</div>
+									</div>
+								</form>
+							</div>
+
+							<div id="signup" class="tab-pane fade">
+								<form action="#">
+									<div class="form-group">
+										<input type="email" class="form-control" id="email" placeholder="email address">
+									</div>
+									<div class="form-group">
+										<input type="password" class="form-control" id="pwd" placeholder="password">
+									</div>
+									<div class="form-group">
+										<input type="password" class="form-control" id="pwd" placeholder="confirm password">
+									</div>
+									<button type="submit" class="btn btn-primary btn-block">Submit</button>
+									<div class="row mt-2">
+										<div class="col-sm-6">
+											<button type="submit" class="btn-link btn btn-block">Forgot password?</button>
+										</div>
+										<div class="col-sm-6">
+											<a href="javascript: ;" id="loginlink" class="btn btn-success btn-block reglink"> Already registered? </a>
+										</div>
+									</div>
+								</form>
+								<br/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<script type="text/javascript">
+			$('#signuplink').click(function() {
+				console.log('aaaaaaa');
+				$('[href="#signup"]').tab('show'); });
+			$('#loginlink').click(function() {
+				console.log('aaaaaaa');
+				$('[href="#login"]').tab('show'); });
+		</script>
+	</body>
+</html>
