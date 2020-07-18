@@ -25,7 +25,7 @@ SECRET_KEY = '*=6$*=-7h)zct%cs+(!+-20n&@xr4j_n$_p*6^i*miqw^e@1pq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "192.168.1.5","192.168.0.156"]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'crispy_forms',
+    'livereload',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'vffsite.urls'
@@ -124,3 +126,5 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'accounts.User'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGOUT_REDIRECT_URL='/login'
