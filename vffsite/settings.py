@@ -128,3 +128,7 @@ AUTH_USER_MODEL = 'accounts.User'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGOUT_REDIRECT_URL='/login'
+
+STATICFILES_DIRS = [
+        '/Users/prajeesh/work/myweb/open-iconic/font/fonts',
+        ]
