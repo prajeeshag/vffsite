@@ -10,7 +10,7 @@ from .forms import signupForm, loginForm
 def home(request):
     return render(request, 'registration/home.html')
 
-def signup_or_login(request):
+def login(request):
     if request.method == 'POST':
         if settings.DEBUG:
             print(request.POST)
@@ -38,6 +38,6 @@ def signup_or_login(request):
         signupform = signupForm(tabActive=False)
         loginform = loginForm()
 
-    return render(request, 'registration/signup_or_login.html', {'signupForm':signupform, 
+    return render(request, 'registration/login.html', {'signupForm':signupform, 
         'loginForm':loginform,})
 

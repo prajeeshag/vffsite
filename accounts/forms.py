@@ -9,7 +9,7 @@ class signupForm(UserCreationForm):
 
     class Meta(UserCreationForm):
         model = User
-        fields = ('email','first_name','last_name')
+        fields = ('mobile_number',)
 
     def __init__(self, *args, tabActive=True, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,9 +26,7 @@ class signupForm(UserCreationForm):
             self.active=""
         self.helper.layout = Layout( Div(
             formStart,
-            Field('email', placeholder=flds['email'].label),
-            Row(Div(Field('first_name', placeholder=flds['first_name'].label), css_class="col-md-6"), 
-                Div(Field('last_name', placeholder=flds['last_name'].label), css_class="col-md-6")), 
+            Field('mobile_number', placeholder=flds['mobile_number'].label),
             Field('password1',placeholder=flds['password1'].label),
             Field('password2',placeholder=flds['password2'].label), 
             Submit('signup', 'Sign Up', css_class="btn-danger btn-block"),
@@ -41,8 +39,6 @@ class loginForm(AuthenticationForm):
 
     def __init__(self, *args, tabActive=True, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['password'].widget.attrs.update({'placeholder':'Password'})
-        self.fields['username'].widget.attrs.update({'placeholder':'Email address'})
 
         self.helper = FormHelper()
         self.helper.form_tag = False
