@@ -3,6 +3,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, Div, HTML, Button, Field
 from crispy_forms.bootstrap import PrependedText
+from django.utils.translation import ugettext_lazy as _
 
 from .models import User
 
@@ -59,4 +60,23 @@ class signinForm(AuthenticationForm):
             Submit('signin', 'Sign in', css_class="btn-primary btn-block mb-3"),
             asksignup,
             Button('frgtpswd','Forgot password?',css_class="btn-link btn-block"))
+
+
+class OTPVerificationForm(forms.ModelForm):
+    """
+    A form that creates a user, with no privileges, from the given username and
+    password.
+    """
+    error_messages = {
+        'invalid_otp': _("Invalid OTP"),
+    }
+    otp = forms.CharField(label=_("Password"),
+        widget=forms.PasswordInput,
+        help_text=_("Enter the OTP recieved for verification."))
+
+    class Meta:
+        model = User
+        fields = ("mobile_number",)
+
+    def verify_otp(self):
 
