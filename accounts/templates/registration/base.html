@@ -44,14 +44,19 @@
 		<div class="container d-flex flex-column justify-content-between vh-100">
 			<div class="row justify-content-center mt-5">
 				<div class="col-xl-5 col-lg-6 col-md-10">
-					<div class="card">
+					<div class="card" id="formContent">
 						<div class="card-body p-5">
-							{% block content %}
-							{% endblock %}
+							<!--{% block content %}-->
+							{% load crispy_forms_tags %}
+
+							{% crispy form %}
+							<!--{% endblock %}-->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script src="{% static "plugins/jquery/jquery.min.js" %}"></script>
+		<script src="{% static "registration/script.js" %}"></script>
 	</body>
 </html>

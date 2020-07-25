@@ -9,7 +9,7 @@ from .managers import UserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
     phone_regex = RegexValidator(regex='^(\d{10})$', message='Phone number must be ten digits')
-    mobile_number = models.CharField(_('Mobile_number'),validators=[phone_regex], max_length=10, unique=True)
+    mobile_number = models.CharField(_('Mobile number'),validators=[phone_regex], max_length=10, unique=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     is_active = models.BooleanField(_('active'), default=True)
     is_staff = models.BooleanField(_('staff'), default=True)
@@ -22,12 +22,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
-
-    def email_user(self, subject, message, from_email=None, **kwargs):
-        '''
-        Sends an email to this User.
-        '''
-        send_mail(subject, message, from_email, [self.email], **kwargs)
 
 
 class Profile(models.Model):

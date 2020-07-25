@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
-from .forms import signupForm, loginForm
+from .forms import signupForm, signinForm
 
 @login_required
 def home(request):
@@ -15,7 +15,7 @@ def signin(request):
     if request.method == 'POST':
         if settings.DEBUG:
             print(request.POST)
-        form = loginForm(None, request.POST)
+        form = signinForm(None, request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password')
@@ -24,9 +24,9 @@ def signin(request):
             return redirect('accounts:home')
 
     else:
-        loginform = loginForm()
+        form = signinForm()
 
-    return render(request, 'registration/signin.html', {'form':form,})
+    return render(request, 'registration/base.html', {'form':form,})
 
 
 
@@ -42,6 +42,6 @@ def signup(request):
     else:
         form = signupForm()
 
-    return render(request, 'registration/signup.html', {'form':form})
+    return render(request, 'registration/base.html', {'form':form,})
 
 
