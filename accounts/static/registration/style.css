@@ -55,8 +55,8 @@ h2 {
 	/*border-radius: 5px 5px 5px 5px;*/
 /*}*/
 
-/*input[type=text]:focus, input[type=password]:focus {*/
-.input-group:focus-within {
+input[type=text]:focus, input[type=password]:focus {
+/*.input-group:focus-within {*/
 	background-color: #fff;
 	border-bottom: 2px solid #5fbae9;
 }

@@ -4,7 +4,9 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
-from .forms import signupForm, signinForm
+import pyotp
+
+from .forms import signupForm, signinForm, otpForm1, otpForm2
 
 @login_required
 def home(request):
@@ -34,13 +36,22 @@ def signup(request):
     if request.method == 'POST':
         if settings.DEBUG:
             print(request.POST)
-        form = signupForm(request.POST)
-        if form.is_valid():
+        if 'sendOTP' in request.POST:
+            form = otpForm1(request.POST)
+            if form.is_valid():
+                phone_number=form.cleaned_data.get('phone_number')
+                form = otpForm2()
+                form.send_otp()
+        elif 'verifyOTP' in request.POST:
+            token = request.POST['otp'][0]
+            if form.totp.verify(token):
+                return redirect('accounts:home')
+        elif 'submit' in request.POST:
             user=form.save()
             login(request,user)
             return redirect('accounts:home')
     else:
-        form = signupForm()
+        form = otpForm1()
 
     return render(request, 'registration/base.html', {'form':form,})
 
