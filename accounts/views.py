@@ -6,7 +6,7 @@ from django.conf import settings
 
 import pyotp
 
-from .forms import SignupForm1
+from .forms import SignupForm1, SignupForm2
 
 
 @login_required
@@ -15,12 +15,24 @@ def home(request):
 
 
 def signin(request):
-    form = SignupForm1()
+    if settings.DEBUG:
+        print(request.POST)
+    form = SignupForm2(user_id=11)
 
     return render(request, 'registration/base.html', {'form': form, })
 
 
 def signup(request):
-    form = SignupForm1()
+
+    if settings.DEBUG:
+        print(request.POST)
+
+    if 'sendOTP' in request.POST:
+        form = SignupForm1(request.POST)
+        if form.is_valid():
+            user = form.save()
+            form = SignupForm2(user_id=user.pk)
+    else:
+        form = SignupForm1()
 
     return render(request, 'registration/base.html', {'form': form, })
