@@ -47,8 +47,13 @@
 					<div class="card" id="formContent">
 						<div class="card-body p-2">
 							<!--{% block content %}-->
-							{% load crispy_forms_tags %}
-							{% crispy form %}
+							{% if form %}
+								{% load crispy_forms_tags %}
+								{% crispy form %}
+							{% else %}
+								<h4 class="text-success"> Account created. </h4>
+								<p> Please <a href=/signin/ class="text-blue"> signin </a> to proceed. </p>
+							{% endif %}
 							<!--{% endblock %}-->
 						</div>
 					</div>

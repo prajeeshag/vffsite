@@ -3,7 +3,8 @@ from django.dispatch import receiver
 
 from .models import User, TOTPDevice
 
-@receiver(post_save, sender=User)
-def create_TOTPDevice(sender, instance, created, **kwargs):
-    if created:
-        TOTPDevice.objects.create(user=instance)
+
+# @receiver(post_save, sender=User)
+# def create_TOTPDevice(sender, instance, created, **kwargs):
+# if created:
+# TOTPDevice.objects.create(user=instance)

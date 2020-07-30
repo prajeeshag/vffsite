@@ -25,7 +25,7 @@ SECRET_KEY = '*=6$*=-7h)zct%cs+(!+-20n&@xr4j_n$_p*6^i*miqw^e@1pq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "192.168.1.6","192.168.0.156","127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "192.168.1.6", "192.168.0.156", "127.0.0.1"]
 
 
 # Application definition
@@ -128,8 +128,9 @@ AUTH_USER_MODEL = 'accounts.User'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGOUT_REDIRECT_URL='/login'
+LOGOUT_REDIRECT_URL = '/login'
+LOGIN_REDIRECT_URL = '/profile'
 
 STATICFILES_DIRS = [
-        os.path.join(BASE_DIR,'static')
-        ]
+    os.path.join(BASE_DIR, 'static')
+]
