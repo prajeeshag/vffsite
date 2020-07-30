@@ -5,7 +5,7 @@ from crispy_forms.layout import (
     Layout, Submit, Row, Column, Div, HTML, Button, Field)
 from crispy_forms.bootstrap import (
     PrependedText, PrependedAppendedText, FieldWithButtons, StrictButton)
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
 from django.contrib.auth import (authenticate, password_validation)
 from django.core.exceptions import SuspiciousOperation
@@ -17,81 +17,51 @@ from .models import User
 from .misc import TOTPDevice
 
 
-hSignup = HTML('<h4 class="text-primary mb-4"> VFF Sign up </h4>')
-hSignin = HTML('<h4 class="text-primary mb-4"> VFF Sign in </h4>')
-asksignin = Div(HTML(
-    '<p> Already have an account? <a class="text-blue" href="/signin/">Sign in</a> </p>'))
-asksignup = Div(HTML(
-    '<p> Do not have an account? <a class="text-blue" href="/signup/">Sign up</a> </p>'))
-forgotPwd = Div(
-    HTML('<a class="text-blue" href="/passwordreset/">Forgot password?</a>'))
+class numberVerifyForm(forms.Form):
 
+    error_messages = {'accExist': _('An account already exist with this Phone Number!'),
+                      'accNotExist': _('Account does not exist with this Phone Number!')}
 
-class SignupForm1(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ('phone_number',)
+    regex = RegexValidator(
+        regex='^(\d{10})$', message=_('Phone number must be 10 digits'))
+    phone_number = forms.CharField(validators=[regex],
+                                   label='Phone number', max_length=10)
 
     def __init__(self, *args, **kwargs):
+
+        self.session = kwargs.pop('session')
+        self.acc_exist_is_valid = kwargs.pop('is_signup', True)
         super().__init__(*args, **kwargs)
+
+        self.session = {}
+
         self.helper = FormHelper()
         self.helper.form_show_labels = False
         icon1 = '<span class="input-group-text mdi mdi-cellphone-iphone"> </span>'
-        flds = self.fields
-        self.helper.layout = Layout(
-            hSignup,
-            PrependedAppendedAny('phone_number', icon1, None,
-                                 placeholder=flds['phone_number'].label),
-            Submit('_sendOTP', 'Send OTP', css_class="btn-primary mb-3"),
-            asksignin)
 
-    def save(self):
-        user = super().save(commit=False)
-        return user
+        flds = self.fields
+
+        for key, fld in flds.items():
+            fld.widget.attrs['placeholder'] = fld.label
+
+        self.helper.layout = Layout(
+            PrependedAppendedAny('phone_number', icon1, None),
+            Submit('_sendOTP', 'Send OTP', css_class="btn-primary mb-3"))
 
     def clean(self):
         super().clean()
         phone_number = self.cleaned_data.get('phone_number')
-
-
-class numberVerifyForm(forms.Form):
-
-    regex = RegexValidator(
-        regex='^(\d{10})$', message=_('Phone number must be 10 digits'))
-    phone_number = forms.CharField(
-        validators=[regex], label='Phone number', max_length=10)
-
-    def __init__(self, *args, **kwargs):
-        self.session = kwargs.pop('session', None)
-        header = kwargs.pop('Verify', None)
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_show_labels = False
-        icon1 = '<span class="input-group-text mdi mdi-cellphone-iphone"> </span>'
-        flds = self.fields
-        heading = HTML('<h4 class="text-primary mb-4"> '+header+' </h4>')
-        self.helper.layout = Layout(
-            heading,
-            PrependedAppendedAny('phone_number', icon1, None,
-                                 placeholder=flds['phone_number'].label),
-            Submit('_sendOTP', 'Send OTP', css_class="btn-primary mb-3"),
-            asksignin)
-
-    def clean(self):
-        super().clean()
-        phoneNumber = self.cleaned_data.get('phone_number')
         try:
-            user = User.objects.get(phone_number=phoneNumber)
-        except User.exceptions.DoesNotExist:
-            raise forms.ValidationError(
-                'An account with this number does not exist.', code='accountNotExist')
-        if self.session is not None:
-            self.session['phone_number'] = phoneNumber
-            totpName = totpKey(phoneNumber)
-            if totpName in self.session:
-                del self.session[totpName]
-        return phoneNumber
+            user = User.objects.get(phone_number=phone_number)
+            if self.is_signup is True:
+                raise forms.ValidationError(self.error_messages[
+                    'accExist'], code='accExist')
+        except User.DoesNotExist:
+            if self.is_signup is False:
+                raise forms.ValidationError(
+                    self.error_messages['accNotExist'], 'accNotExist')
+
+        self.session['phone_number'] = phone_number
 
 
 class OTPForm(forms.Form):
@@ -102,18 +72,16 @@ class OTPForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
 
-        self.session = kwargs.pop('session', None)
+        self.session = kwargs.pop('session')
         super().__init__(*args, **kwargs)
         self.phone_number = self.session['phone_number']
-        totpName = totpKey(self.phone_number)
-        self.totpName = totpName
 
-        if totpName in self.session:
-            totpData = self.session[totpName]
+        if 'totp' in self.session:
+            totpData = self.session['totp']
             self.totp = TOTPDevice(**totpData)
         else:
             self.totp = TOTPDevice()
-            self.session[totpName] = vars(self.totp)
+            self.session['totp'] = vars(self.totp)
 
         self.error_message = {
             'invalidOTP': _('Entered OTP is invalid!')}
@@ -121,28 +89,36 @@ class OTPForm(forms.Form):
         self.helper = FormHelper()
         self.helper.form_show_labels = False
         icon1 = '<span class="input-group-text mdi mdi-key"> </span>'
+
         flds = self.fields
+
+        for key, fld in flds.items():
+            fld.widget.attrs['placeholder'] = fld.label
+
         flds['otp'].help_text = ' '.join(['OTP sent to', self.phone_number])
         self.helper.layout = Layout(
-            PrependedAppendedAny('otp', icon1, None,
-                                 placeholder=flds['otp'].label),
+            PrependedAppendedAny('otp', icon1, None),
             Submit('_verify', 'Verify', css_class="btn-primary mb-3"),
-            HTML('<i>token testing: '+self.totp.generate_token()+'</i>'))
+            Div(HTML('<i>token testing: '+self.totp.generate_token()+'</i>')))
 
     def clean_otp(self):
         token = self.cleaned_data.get('otp')
-        if self.totp.verify_token(token):
-            del self.session[self.totpName]
-        else:
+        if self.totp.verify_token(token) is not True:
             raise forms.ValidationError(
                 self.error_message['invalidOTP'], code='invalidOTP')
         return token
 
 
-class SignupForm2(forms.ModelForm):
-    error_messages = {
-        'password_mismatch': _('The two password fields didn’t match.'),
-    }
+class passwdSetForm(forms.Form):
+    error_messages = {'accExist': _('An account already exist with this Phone Number!'),
+                      'accNotExist': _('Account does not exist with this Phone Number!'),
+                      'password_mismatch': _('The two password fields didn’t match.')}
+
+    regex = RegexValidator(
+        regex='^(\d{10})$', message=_('Phone number must be 10 digits'))
+    phone_number = forms.CharField(validators=[regex],
+                                   label='Phone number', max_length=10)
+
     password1 = forms.CharField(
         label=_("Password"),
         strip=False,
@@ -156,13 +132,10 @@ class SignupForm2(forms.ModelForm):
         help_text=_("Enter the same password as before, for verification."),
     )
 
-    class Meta:
-        model = User
-        fields = ('phone_number',)
-
     def __init__(self, *args, **kwargs):
 
         self.session = kwargs.pop('session')
+        self.is_signup = kwargs.pop('is_signup', True)
 
         super().__init__(*args, **kwargs)
 
@@ -170,25 +143,24 @@ class SignupForm2(forms.ModelForm):
         self.helper.form_show_labels = False
         icon1 = '<span class="input-group-text mdi mdi-key"> </span>'
         flds = self.fields
+        for key, fld in flds.items():
+            fld.widget.attrs['placeholder'] = fld.label
 
         flds['phone_number'].widget = forms.HiddenInput()
         flds['phone_number'].initial = self.session['phone_number']
 
         self.helper.layout = Layout(
-            hSignup,
             'phone_number',
-            PrependedAppendedAny('password1', icon1, None,
-                                 placeholder=flds['password1'].label),
-            PrependedAppendedAny('password2', icon1, None,
-                                 placeholder=flds['password2'].label),
-            Submit('_signup', 'Sign up', css_class="btn-primary mb-3"))
+            PrependedAppendedAny('password1', icon1, None),
+            PrependedAppendedAny('password2', icon1, None),
+            Submit('_submit', 'Submit', css_class="btn-primary mb-3"))
 
-    def clean_phone_number(self):
+    def clean(self):
+        super().clean()
         phone_number = self.cleaned_data.get('phone_number')
         phone_number_initial = self.fields['phone_number'].initial
         if phone_number != phone_number_initial:
             raise SuspiciousOperation('Phone number changed!!!')
-        return phone_number
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -210,10 +182,18 @@ class SignupForm2(forms.ModelForm):
                 self.add_error('password2', error)
 
     def save(self, commit=True):
-        user = super().save(commit=False)
+        phone_number = self.session['phone_number']
+
+        if self.signup is True:
+            user = User(phone_number=phone_number)
+        else:
+            user = User.objects.get(phone_number=phone_number)
+
         user.set_password(self.cleaned_data['password1'])
+
         if commit:
             user.save()
+
         return user
 
 
@@ -228,16 +208,10 @@ class SigninForm(AuthenticationForm):
         icon1 = '<span class="input-group-text mdi mdi-cellphone-iphone"> </span>'
         icon2 = '<span class="input-group-text mdi mdi-key"> </span>'
         flds = self.fields
+        for key, fld in flds.items():
+            fld.widget.attrs['placeholder'] = fld.label
 
         self.helper.layout = Layout(
-            hSignin,
-            PrependedAppendedAny('username', icon1, None,
-                                 placeholder=flds['username'].label),
-            PrependedAppendedAny('password', icon2, None,
-                                 placeholder=flds['password'].label),
-            Submit('_signin', 'Sign in', css_class="btn-primary mb-3"),
-            asksignup)
-
-
-def totpKey(x):
-    return "".join(['totp', x])
+            PrependedAppendedAny('username', icon1, None),
+            PrependedAppendedAny('password', icon2, None),
+            Submit('_signin', 'Sign in', css_class="btn-primary mb-3"))

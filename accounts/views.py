@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib import messages
 
-import pyotp
-
-from .forms import SignupForm1, SignupForm2, SignupForm3, SigninForm
+from .forms import numberVerifyForm, OTPForm, passwdSetForm, SigninForm
 from .misc import TOTPDevice
 
 
@@ -19,30 +18,46 @@ def home(request):
 
 class SigninView(LoginView):
     form_class = SigninForm
-    template_name = 'registration/base.html'
+    template_name = 'registration/signin.html'
 
 
-def signup(request):
+def signup_passwdreset(request, for_view):
+
+    if for_view == 'signup':
+        is_signup = True
+        template = 'registration/signup.html'
+    elif for_view == 'passwdreset':
+        is_signup = True
+        template = 'registration/passwdreset.html'
+    else:
+        raise Http404(for_view+" does not exist")
 
     if settings.DEBUG:
         print(request.POST)
 
-    if '_sendOTP' in request.POST:
-        form = SignupForm1(data=request.POST, session=request.session)
-        if form.is_valid():
-            form = SignupForm2(session=request.session)
-    elif '_verify' in request.POST:
-        form = SignupForm2(data=request.POST, session=request.session)
-        if form.is_valid():
-            form = SignupForm3(session=request.session)
-    elif '_signup' in request.POST:
-        form = SignupForm3(data=request.POST, session=request.session)
-        if form.is_valid():
-            user = form.save()
-            return render(request, 'registration/base.html')
-    else:
-        form = SignupForm1(session=request.session)
-
     request.session.set_expiry(0)
 
-    return render(request, 'registration/base.html', {'form': form, })
+    if '_sendOTP' in request.POST:
+        form = numberVerifyForm(
+            data=request.POST, session=request.session[for_view], is_signup=is_signup)
+        if form.is_valid():
+            form = OTPForm(session=request.session[for_view])
+    elif '_verify' in request.POST:
+        form = OTPForm(data=request.POST, session=request.session[for_view])
+        if form.is_valid():
+            form = passwdSetForm(
+                session=request.session[for_view], is_signup=is_signup)
+    elif '_submit' in request.POST:
+        form = passwdSetForm(
+            data=request.POST, session=request.session[for_view], is_signup=is_signup)
+        if form.is_valid():
+            user = form.save()
+            del request.session[for_view]
+            messages.success('Account created. Please sign in.')
+            return redirect('signin')
+    else:
+        request.session[for_view] = {}
+        form = numberVerifyForm(
+            session=request.session[for_view], is_signup=is_signup)
+
+    return render(request, template, {'form': form, })

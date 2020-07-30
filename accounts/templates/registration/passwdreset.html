@@ -1,0 +1,21 @@
+{% extends "registration/base.html" %}
+
+{% block content %}
+
+<h4 class="text-primary mb-3"> VFF Password Reset </h4>
+
+{% load crispy_forms_tags %}
+
+{% crispy form %}
+
+<div class="row"
+<div class="col-sm-6">
+	<a href="/signup/" class="text-primary">Sign Up</a>
+</div>
+<div class="col-sm-6">
+	<a href="/signin/" class="text-primary">Sign in</a>
+</div>
+</div>
+
+{% endblock %}
+
