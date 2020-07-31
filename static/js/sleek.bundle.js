@@ -9985,7 +9985,7 @@
 	    SimpleJekyllSearch.init({
 	      searchInput: document.getElementById('search-input'),
 	      resultsContainer: document.getElementById('search-results'),
-	      dataSource: '/assets/data/search.json',
+	      dataSource: '/data/search.json',
 	      searchResultTemplate: '<li><div class="link"><a href="{link}">{label}</a></div><div class="location">{location}</div><\/li>',
 	      noResultsText: '<li>No results found</li>',
 	      limit: 10,
@@ -10639,7 +10639,7 @@
 	      jQuery(this).addClass('btn-right-sidebar-2-active');
 	      rtl.removeClass('btn-right-sidebar-2-active');
 	      $('html').attr('dir', 'ltr');
-	      $("#sleek-css").attr("href", "assets/css/sleek.css");
+				//$("#sleek-css").attr("href", "assets/css/sleek.css");
 	      window.dir = 'ltr';
 
 	      //Store in local storage
@@ -10655,7 +10655,7 @@
 	      jQuery(this).addClass('btn-right-sidebar-2-active');
 	      ltr.removeClass('btn-right-sidebar-2-active');
 	      $('html').attr('dir', 'rtl');
-	      $("#sleek-css").attr("href", "assets/css/sleek.rtl.css");
+				//$("#sleek-css").attr("href", "assets/css/sleek.rtl.css");
 	      window.dir = 'rtl';
 
 	      //Store in local storage
