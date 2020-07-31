@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'django_otp',
-    'livereload',
+    'dashboard',
 ]
 
 MIDDLEWARE = [

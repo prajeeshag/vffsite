@@ -30,10 +30,8 @@ class numberVerifyForm(forms.Form):
     def __init__(self, *args, **kwargs):
 
         self.session = kwargs.pop('session')
-        self.acc_exist_is_valid = kwargs.pop('is_signup', True)
+        self.is_signup = kwargs.pop('is_signup', True)
         super().__init__(*args, **kwargs)
-
-        self.session = {}
 
         self.helper = FormHelper()
         self.helper.form_show_labels = False
@@ -62,6 +60,7 @@ class numberVerifyForm(forms.Form):
                     self.error_messages['accNotExist'], 'accNotExist')
 
         self.session['phone_number'] = phone_number
+        print(self.session)
 
 
 class OTPForm(forms.Form):
@@ -177,14 +176,14 @@ class passwdSetForm(forms.Form):
         password = self.cleaned_data.get('password2')
         if password:
             try:
-                password_validation.validate_password(password, self.instance)
+                password_validation.validate_password(password)
             except forms.ValidationError as error:
                 self.add_error('password2', error)
 
     def save(self, commit=True):
         phone_number = self.session['phone_number']
 
-        if self.signup is True:
+        if self.is_signup is True:
             user = User(phone_number=phone_number)
         else:
             user = User.objects.get(phone_number=phone_number)

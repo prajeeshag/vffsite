@@ -22,7 +22,7 @@ class TOTPDevice():
 
     def generate_token(self):
         totp = self.__create_topt_obj()
-        token = str(totp.token())
+        token = str(totp.token()).zfill(self.digits)
         return token
 
     def verify_token(self, token):

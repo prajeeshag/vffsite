@@ -5,6 +5,7 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 
 from .forms import numberVerifyForm, OTPForm, passwdSetForm, SigninForm
 from .misc import TOTPDevice
@@ -26,9 +27,11 @@ def signup_passwdreset(request, for_view):
     if for_view == 'signup':
         is_signup = True
         template = 'registration/signup.html'
+        msg = _('Account created. Please sign in.')
     elif for_view == 'passwdreset':
-        is_signup = True
+        is_signup = False
         template = 'registration/passwdreset.html'
+        msg = _('Password changed successfully')
     else:
         raise Http404(for_view+" does not exist")
 
@@ -41,6 +44,7 @@ def signup_passwdreset(request, for_view):
         form = numberVerifyForm(
             data=request.POST, session=request.session[for_view], is_signup=is_signup)
         if form.is_valid():
+            print(request.session[for_view])
             form = OTPForm(session=request.session[for_view])
     elif '_verify' in request.POST:
         form = OTPForm(data=request.POST, session=request.session[for_view])
@@ -53,8 +57,8 @@ def signup_passwdreset(request, for_view):
         if form.is_valid():
             user = form.save()
             del request.session[for_view]
-            messages.success('Account created. Please sign in.')
-            return redirect('signin')
+            messages.success(request, msg)
+            return redirect('accounts:signin')
     else:
         request.session[for_view] = {}
         form = numberVerifyForm(

@@ -2,9 +2,16 @@
 
 {% block content %}
 
-<h4 class="text-primary mb-3"> VFF Sign In </h4>
 
 {% load crispy_forms_tags %}
+
+{% comment %}{% if messages %}{% endcomment %}
+		{% comment %}{% for message in messages %}{% endcomment %}
+			{% comment %}<div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>{% endcomment %}
+		{% comment %}{% endfor %}{% endcomment %}
+{% comment %}{% endif %}{% endcomment %}
+
+<h4 class="text-primary mb-3"> VFF Sign In </h4>
 
 {% crispy form %}
 
