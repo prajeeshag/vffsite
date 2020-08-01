@@ -74,14 +74,17 @@
 
 .avatar-upload {
   position: relative;
-  max-width: 205px;
-  margin: 50px auto;
+  max-width: 225px;
+  margin: 30px auto;
 }
-.avatar-upload .avatar-edit {
-  position: absolute;
-  right: 12px;
+
+.avatar-preview .avatar-edit {
+  /*position: absolute;*/
+	left: 80%;
+	bottom: 20%;
+	position: relative;
   z-index: 1;
-  top: 10px;
+  /*top: 10px;*/
 }
 .avatar-upload .avatar-edit input {
   display: none;
@@ -107,7 +110,7 @@
 
 .avatar-upload .avatar-edit input + label::before {
 	color: #757575;
-  position: absolute;
+  position: relative;
 	top: 20%;
 	width: 100%;
   text-align: center;
