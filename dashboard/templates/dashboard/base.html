@@ -20,7 +20,9 @@
 		<link href="{% static 'plugins/daterangepicker/daterangepicker.css' %}" rel="stylesheet" />
 
 		<!-- SLEEK CSS -->
-		<link id="sleek-css" rel="stylesheet" href="{% static 'css/sleek.css' %}?ver=1.4" />
+		<link id="sleek-css" rel="stylesheet" href="{% static 'css/sleek.css' %}" />
+
+		{% block styles %} {% endblock %}
 
 		<!-- FAVICON -->
 		<link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
@@ -45,10 +47,10 @@
 				{% include "dashboard/header.html" %}
 
 				<div class="content-wrapper">
-					{% include "dashboard/profile.html" %}
+					{% block content %} {% endblock %}
 				</div>
 
-				{% include "dashboard/footer.html" %}
+				<!--{% include "dashboard/footer.html" %}-->
 
 			</div>
 		</div>
@@ -59,6 +61,7 @@
 
 		<script src="{% static 'plugins/daterangepicker/moment.min.js' %}"></script>
 		<script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+		{% block scripts %} {% endblock %}
 		<!--<script>-->
 			<!--jQuery(document).ready(function() {-->
 					<!--jQuery('input[name="dateRange"]').daterangepicker({-->
@@ -75,7 +78,7 @@
 					<!--jQuery(this).val('');-->
 					<!--});-->
 					<!--});-->
-<!--</script>-->
+		<!--</script>-->
 		<script src="{% static "js/sleek.bundle.js" %}?ver=1.0"></script>
 
 	</body>
