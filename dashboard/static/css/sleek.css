@@ -3247,7 +3247,7 @@ input[type="button"].btn-block {
 @media (min-width: 576px) {
   .navbar-expand-sm {
     flex-flow: row nowrap;
-    justify-content: flex-start; }
+    justify-content: flex-end; }
     .navbar-expand-sm .navbar-nav {
       flex-direction: row; }
       .navbar-expand-sm .navbar-nav .dropdown-menu {
@@ -3273,7 +3273,7 @@ input[type="button"].btn-block {
 @media (min-width: 768px) {
   .navbar-expand-md {
     flex-flow: row nowrap;
-    justify-content: flex-start; }
+    justify-content: flex-end; }
     .navbar-expand-md .navbar-nav {
       flex-direction: row; }
       .navbar-expand-md .navbar-nav .dropdown-menu {
@@ -3296,10 +3296,11 @@ input[type="button"].btn-block {
     padding-right: 0;
     padding-left: 0; } }
 
+
 @media (min-width: 992px) {
   .navbar-expand-lg {
     flex-flow: row nowrap;
-    justify-content: flex-start; }
+    justify-content: flex-end;}
     .navbar-expand-lg .navbar-nav {
       flex-direction: row; }
       .navbar-expand-lg .navbar-nav .dropdown-menu {
@@ -3316,6 +3317,7 @@ input[type="button"].btn-block {
     .navbar-expand-lg .navbar-toggler {
       display: none; } }
 
+
 @media (max-width: 1199.98px) {
   .navbar-expand-xl > .container,
   .navbar-expand-xl > .container-fluid, .navbar-expand-xl > .container-sm, .navbar-expand-xl > .container-md, .navbar-expand-xl > .container-lg, .navbar-expand-xl > .container-xl {
@@ -3325,7 +3327,7 @@ input[type="button"].btn-block {
 @media (min-width: 1200px) {
   .navbar-expand-xl {
     flex-flow: row nowrap;
-    justify-content: flex-start; }
+    justify-content: flex-end; }
     .navbar-expand-xl .navbar-nav {
       flex-direction: row; }
       .navbar-expand-xl .navbar-nav .dropdown-menu {
@@ -3351,7 +3353,7 @@ input[type="button"].btn-block {
 @media (min-width: 1500px) {
   .navbar-expand-xxl {
     flex-flow: row nowrap;
-    justify-content: flex-start; }
+    justify-content: flex-end; }
     .navbar-expand-xxl .navbar-nav {
       flex-direction: row; }
       .navbar-expand-xxl .navbar-nav .dropdown-menu {
@@ -3370,7 +3372,7 @@ input[type="button"].btn-block {
 
 .navbar-expand {
   flex-flow: row nowrap;
-  justify-content: flex-start; }
+  justify-content: flex-end; }
   .navbar-expand > .container,
   .navbar-expand > .container-fluid, .navbar-expand > .container-sm, .navbar-expand > .container-md, .navbar-expand > .container-lg, .navbar-expand > .container-xl {
     padding-right: 0;
@@ -10298,7 +10300,7 @@ div.copied {
         font-weight: 500; }
       @media (min-width: 992px) {
         .navbar .navbar-right .navbar-nav .user-menu .dropdown-toggle {
-          padding-right: .25rem;
+          /*padding-right: .25rem;*/
           padding-left: 1rem; } }
       @media (min-width: 1200px) {
         .navbar .navbar-right .navbar-nav .user-menu .dropdown-toggle {
@@ -10343,7 +10345,7 @@ div.copied {
         height: 11px;
         border-radius: 100px;
         top: -18px;
-        left: -17px; }
+        left: 0px; }
     .navbar .navbar-right .navbar-nav .notifications-menu > .dropdown-menu {
       width: 275px;
       right: -75px; }
@@ -13531,31 +13533,31 @@ tbody tr td:first-child {
 
 /* Github Icon */
 .github-link {
-  display: none; }
-  @media (min-width: 768px) {
-    .github-link {
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 999; }
-      .github-link i {
-        position: absolute;
-        top: 2px;
-        right: 7px;
-        color: #ffffff;
-        font-size: 25px; } }
+	display: none; }
+	@media (min-width: 768px) {
+		.github-link {
+			display: block;
+			position: absolute;
+			top: 0;
+			right: 60px;
+			z-index: 999; }
+			.github-link i {
+				position: absolute;
+				top: 2px;
+				right: 7px;
+				color: #ffffff;
+				font-size: 25px; } }
 
-.header-fixed .github-link {
-  position: fixed; }
-  .header-fixed .github-link i {
-    position: fixed; }
+/*.header-fixed .github-link {*/
+	/*position: fixed; }*/
+	/*.header-fixed .github-link i {*/
+		/*position: fixed; }*/
 
 /*===== REBOOT =====*/
 html[dir="rtl"] .sidebar li > a .caret:before {
   content: '\f141'; }
 
 html[dir="rtl"] .github-link svg {
-  transform: rotateY(180deg); }
+	transform: rotateY(180deg); }
 
 /*# sourceMappingURL=sleek.css.map */
