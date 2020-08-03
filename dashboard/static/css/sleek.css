@@ -3177,7 +3177,7 @@ input[type="button"].btn-block {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem; }
+	padding: 0.5rem 1rem; }
   .navbar .container,
   .navbar .container-fluid, .navbar .container-sm, .navbar .container-md, .navbar .container-lg, .navbar .container-xl {
     display: flex;
@@ -10174,9 +10174,9 @@ div.copied {
   @media (prefers-reduced-motion: reduce) {
     .navbar {
       transition: none; } }
-  @media (min-width: 768px) {
-    .navbar {
-      padding-right: 4.5rem; } }
+  /*@media (min-width: 768px) {*/
+    /*.navbar {*/
+      /*padding-right: 4.5rem; } }*/
   .navbar .sidebar-offcanvas-toggle,
   .navbar .sidebar-toggle {
     background-color: transparent;
@@ -10278,7 +10278,7 @@ div.copied {
         padding-right: 0; } }
     .navbar .navbar-right .navbar-nav li > .dropdown-menu {
       position: absolute;
-      right: 15px;
+			right: 15px;
       border-color: #e5e9f2; }
     @media (min-width: 992px) {
       .navbar .navbar-right .navbar-nav .user-menu {
@@ -13558,4 +13558,4 @@ html[dir="rtl"] .sidebar li > a .caret:before {
 html[dir="rtl"] .github-link svg {
   transform: rotateY(180deg); }
 
-/*# sourceMappingURL=sleek.css.map */
+/*//# sourceMappingURL=sleek.css.map */

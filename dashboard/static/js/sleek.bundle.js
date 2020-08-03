@@ -7428,11 +7428,16 @@ unwrapExports(bootstrap);
 		var ltr = jQuery('.ltr-to');
 		var rtl = jQuery('.rtl-to');
 
+
 		ltr.click(function () {
 			jQuery(this).addClass('btn-right-sidebar-2-active');
 			rtl.removeClass('btn-right-sidebar-2-active');
 			$('html').attr('dir', 'ltr');
-			//$("#sleek-css").attr("href", "assets/css/sleek.css");
+			var path = $("#sleek-css").attr("href");
+			path = dirname(path)[0];
+			path = path.concat('sleek.css');
+			var path = $("#sleek-css").attr("href");
+			$("#sleek-css").attr("href", path);
 			window.dir = 'ltr';
 
 			//Store in local storage
@@ -7448,7 +7453,10 @@ unwrapExports(bootstrap);
 			jQuery(this).addClass('btn-right-sidebar-2-active');
 			ltr.removeClass('btn-right-sidebar-2-active');
 			$('html').attr('dir', 'rtl');
-			//$("#sleek-css").attr("href", "assets/css/sleek.rtl.css");
+			var path = $("#sleek-css").attr("href");
+			path = dirname(path)[0];
+			path = path.concat('sleek.rtl.css');
+			$("#sleek-css").attr("href", path);
 			window.dir = 'rtl';
 
 			//Store in local storage
@@ -7468,6 +7476,10 @@ unwrapExports(bootstrap);
 	});
 
 })();
+
+function dirname(str) {
+	return str.match(/.*\//);
+}
 
 
 $(document).ready(function () {
