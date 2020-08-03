@@ -14,73 +14,39 @@
 		<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
 
 		{% load static %}
-
 		<!-- PLUGINS CSS STYLE -->
-		<link href="{% static 'plugins/nprogress/nprogress.css' %}" rel="stylesheet" />
-		<link href="{% static 'plugins/daterangepicker/daterangepicker.css' %}" rel="stylesheet" />
+		<link href="{% static "plugins/daterangepicker/daterangepicker.css" %}" rel="stylesheet" />
 
 		<!-- SLEEK CSS -->
-		<link id="sleek-css" rel="stylesheet" href="{% static 'css/sleek.css' %}" />
+		<link id="sleek-css" rel="stylesheet" href="{% static "css/sleek.css" %}" />
 
 		{% block styles %} {% endblock %}
 
 		<!-- FAVICON -->
-		<link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
+		<link href="{% static "img/favicon.png" %}" rel="shortcut icon" />
 
-		<script src="{% static 'plugins/nprogress/nprogress.js' %}"></script>
 	</head>
 
-
-	<body class="header-fixed sidebar-fixed sidebar-dark header-dark" id="body">
-
-		<script>
-			NProgress.configure({ showSpinner: false });
-			NProgress.start();
-		</script>
+	<body class="header-fixed sidebar-fixed sidebar-dark header-light" id="body">
 
 		<div class="wrapper">
-
 			{% include "dashboard/side_bar.html" %}
-
 			<div class="page-wrapper">
-
+				<!-- Header -->
 				{% include "dashboard/header.html" %}
-
 				<div class="content-wrapper">
 					{% block content %} {% endblock %}
 				</div>
-
-				<!--{% include "dashboard/footer.html" %}-->
-
 			</div>
 		</div>
 
-		<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
-		<script src="{% static 'plugins/slimscrollbar/jquery.slimscroll.min.js' %}"></script>
-		<script src="{% static 'plugins/jekyll-search.min.js' %}"></script>
-
-		<script src="{% static 'plugins/daterangepicker/moment.min.js' %}"></script>
-		<script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+		<script src="{% static "plugins/jquery/jquery.min.js" %}"></script>
+		<script src="{% static "plugins/slimscrollbar/jquery.slimscroll.min.js" %}"></script>
+		<script src="{% static "plugins/jekyll-search.min.js" %}"></script>
+		<script src="{% static "plugins/daterangepicker/moment.min.js" %}"></script>
+		<script src="{% static "plugins/daterangepicker/daterangepicker.js" %}"></script>
+		<script src="{% static "js/sleek.bundle.js" %}"></script>
 		{% block scripts %} {% endblock %}
-		<!--<script>-->
-			<!--jQuery(document).ready(function() {-->
-					<!--jQuery('input[name="dateRange"]').daterangepicker({-->
-					<!--autoUpdateInput: false,-->
-					<!--singleDatePicker: true,-->
-					<!--locale: {-->
-					<!--cancelLabel: 'Clear'-->
-					<!--}-->
-					<!--});-->
-					<!--jQuery('input[name="dateRange"]').on('apply.daterangepicker', function (ev, picker) {-->
-					<!--jQuery(this).val(picker.startDate.format('MM/DD/YYYY'));-->
-					<!--});-->
-					<!--jQuery('input[name="dateRange"]').on('cancel.daterangepicker', function (ev, picker) {-->
-					<!--jQuery(this).val('');-->
-					<!--});-->
-					<!--});-->
-		<!--</script>-->
-		<script src="{% static "js/sleek.bundle.js" %}?ver=1.0"></script>
-
 	</body>
 
 </html>

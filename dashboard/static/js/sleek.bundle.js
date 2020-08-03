@@ -10348,11 +10348,12 @@ $(document).ready(function() {
 	/*======== 1. JEKYLL INSTANT SEARCH ========*/
 
 	var searchInput = $('#search-input');
+	var dataPath = searchInput.attr('dataPath');
 	if(searchInput.length != 0){
 		SimpleJekyllSearch.init({
 			searchInput: document.getElementById('search-input'),
 			resultsContainer: document.getElementById('search-results'),
-			dataSource: '/assets/data/search.json',
+			dataSource: dataPath,
 			searchResultTemplate: '<li><div class="link"><a href="{link}">{label}</a></div><div class="location">{location}</div><\/li>',
 			noResultsText: '<li>No results found</li>',
 			limit: 10,
@@ -10488,9 +10489,6 @@ $(document).ready(function() {
 		}
 
 	}
-
-	/*======== 6. PROGRESS BAR ========*/
-	NProgress.done();
 
 	/*======== 6. PROGRESS BAR ========*/
 	$('.slim-scroll-right-sidebar-2').slimScroll({
