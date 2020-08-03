@@ -1,5 +1,4 @@
 
-
 $(document).ready(function() {
 	$("[id^='div_id_password'] a").on('click', function(event) {
 		event.preventDefault();
@@ -14,4 +13,9 @@ $(document).ready(function() {
 			$("[id^='div_id_password'] a").addClass( "mdi-eye" );
 		}
 	});
+});
+
+
+$(window).on('load', function(){
+	$("#messageModal").modal('show');
 });

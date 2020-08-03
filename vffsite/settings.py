@@ -127,8 +127,9 @@ AUTH_USER_MODEL = 'accounts.User'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGOUT_REDIRECT_URL = '/login'
-LOGIN_REDIRECT_URL = '/profile'
+LOGOUT_REDIRECT_URL = '/signin'
+LOGIN_REDIRECT_URL = '/home/profile'
+LOGIN_URL = '/signin'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')

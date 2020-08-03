@@ -28,17 +28,8 @@
 	</head>
 
 	<body class="header-fixed sidebar-fixed sidebar-dark header-light" id="body">
-
-		<div class="wrapper">
-			{% include "dashboard/side_bar.html" %}
-			<div class="page-wrapper">
-				<!-- Header -->
-				{% include "dashboard/header.html" %}
-				<div class="content-wrapper">
-					{% block content %} {% endblock %}
-				</div>
-			</div>
-		</div>
+		
+		{% block bodyContent %} {% endblock %}
 
 		<script src="{% static "plugins/jquery/jquery.min.js" %}"></script>
 		<script src="{% static "plugins/slimscrollbar/jquery.slimscroll.min.js" %}"></script>
