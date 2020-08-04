@@ -39,14 +39,11 @@ class Profile(models.Model):
     last_name = models.CharField(_('last name'), max_length=30)
 
     profile_picture = models.ImageField(
-        upload_to='avatars/', null=True, blank=True)
+        upload_to='data/avatars/')
 
     date_of_birth = models.DateField(_('Date of birth'))
 
-    address_1 = models.CharField(_('Address line 1'), max_length=250)
-
-    address_2 = models.CharField(
-        _('Address line 2'), max_length=250, blank=True)
+    address = models.TextField(_('Address'), max_length=200)
 
     post_office = models.CharField(_('Post Office'), max_length=50)
 
@@ -74,7 +71,7 @@ class Profile(models.Model):
         ('2XL', _('Double extra large')),
         ('3XL', _('Triple extra large'))]
     jersey_size = models.CharField(_('Jersey Size'), max_length=3,
-                                   choices=JERSERY_SIZE_CHOICES, default='M', blank=True)
+                                   choices=JERSERY_SIZE_CHOICES)
 
     def get_full_name(self):
         '''

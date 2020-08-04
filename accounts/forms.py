@@ -10,7 +10,7 @@ from django.core.validators import RegexValidator
 from django.contrib.auth import (authenticate, password_validation)
 from django.core.exceptions import SuspiciousOperation
 
-from .fields import PrependedAppendedAny
+from myCrispyFields.fields import PrependedAppendedAny
 
 
 from .models import User

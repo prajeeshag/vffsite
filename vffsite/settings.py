@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_otp',
     'dashboard',
+    'myCrispyFields',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,5 @@ LOGIN_URL = '/signin'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')

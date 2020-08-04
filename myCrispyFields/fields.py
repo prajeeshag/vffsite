@@ -9,7 +9,7 @@ from crispy_forms.utils import TEMPLATE_PACK, flatatt, render_field
 
 
 class PrependedAppendedAny(Field):
-    template = "prepended_appended_any.html"
+    template = "myCrispyFields/prepended_appended_any.html"
 
     def __init__(self, field, prepended_text=None, appended_text=None, *args, **kwargs):
         self.field = field
@@ -51,3 +51,21 @@ class PrependedAppendedAny(Field):
             extra_context=extra_context,
             **kwargs,
         )
+
+
+class AvatarPreview(TemplateNameMixin):
+
+    template = "myCrispyFields/avatar_preview.html"
+
+    def __init__(self, field, **kwargs):
+        self.field = field
+        self.attrs = {}
+        self.template = kwargs.pop("template", self.template)
+        self.flat_attrs = flatatt(kwargs)
+
+    def render(self, form, form_style, context, template_pack=TEMPLATE_PACK, **kwargs):
+
+        template = self.get_template_name(template_pack)
+        context.update({"field": form[self.field]})
+
+        return render_to_string(template, context.flatten())
