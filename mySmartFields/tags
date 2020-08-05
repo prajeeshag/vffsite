@@ -1,0 +1,16 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AvatarPreview	fields.py	/^class AvatarPreview(TemplateNameMixin):$/;"	c
+MycrispyfieldsConfig	apps.py	/^class MycrispyfieldsConfig(AppConfig):$/;"	c
+PrependedAppendedAny	fields.py	/^class PrependedAppendedAny(Field):$/;"	c
+__init__	fields.py	/^    def __init__(self, field, prepended_text=None, appended_text=None, *args, **kwargs):$/;"	m	class:PrependedAppendedAny
+__init__	fields.py	/^    def __init__(self, name, value, **kwargs):$/;"	m	class:AvatarPreview
+name	apps.py	/^    name = 'myCrispyFields'$/;"	v	class:MycrispyfieldsConfig
+render	fields.py	/^    def render(self, form, form_style, context, template_pack=TEMPLATE_PACK, **kwargs):$/;"	m	class:AvatarPreview
+render	fields.py	/^    def render(self, form, form_style, context, template_pack=TEMPLATE_PACK, extra_context=None, **kwargs):$/;"	m	class:PrependedAppendedAny
+template	fields.py	/^    template = "myCrispyFields\/avatar_preview.html"$/;"	v	class:AvatarPreview
+template	fields.py	/^    template = "myCrispyFields\/prepended_appended_any.html"$/;"	v	class:PrependedAppendedAny

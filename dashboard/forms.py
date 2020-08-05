@@ -11,7 +11,8 @@ from django.contrib.auth import (authenticate, password_validation)
 from django.core.exceptions import SuspiciousOperation
 
 from accounts.models import User, Profile
-from myCrispyFields.fields import AvatarPreview
+from mySmartFields.fields import AvatarPreview
+from mySmartFields.widgets import DatePickerInput
 
 
 class profileUpdateForm(forms.ModelForm):
@@ -30,8 +31,9 @@ class profileUpdateForm(forms.ModelForm):
 
         super().__init__(*args, **kwargs, instance=profile)
 
-        self.fields['date_of_birth'].input_formats = ['%d/%m/%Y', ]
+        # self.fields['date_of_birth'].input_formats = ['%d/%m/%Y', ]
         self.fields['address'].widget.attrs['rows'] = 5
+        self.fields['date_of_birth'].widget = DatePickerInput()
 
         self.helper = FormHelper()
         self.helper.layout = Layout(

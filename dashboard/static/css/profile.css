@@ -1,8 +1,6 @@
 
 .avatar-preview .avatar-edit {
-	/*left: 80%;*/
 	top: 80%;
-	/*bottom: 90%;*/
 	position: relative;
   z-index: 1;
 }

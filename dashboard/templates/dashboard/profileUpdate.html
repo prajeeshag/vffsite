@@ -4,26 +4,12 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+{% comment %}<link rel="stylesheet" href="{% static 'css/profile.css' %}" />{% endcomment %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.9/datepicker.min.css" integrity="sha512-Yog+zkte66L91S9y4tcyhCpjvzKjlBxNLW38pm9K2ukBtPN55LKl3dyGvb7ylCFmn/kFKNzN9KbnGPOnHGHxbw==" crossorigin="anonymous" />
 {% endblock %}
 
 {% block scripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.9/datepicker.min.js" integrity="sha512-Hkemjwczq2iepz/dVjaZ/Xd+agLwV7Od5nQ+R74m4E8ruIblnDAJOewx2+xT4TQ+Q9Q2bcMHFD/d70RzVjrWVw==" crossorigin="anonymous"></script>
-<script src="{% static 'js/profile.js' %}"></script>
-<script>
-	var start_Date = new Date()
-	start_Date.setFullYear(start_Date.getFullYear()-100)
-	var end_Date = new Date()
-	end_Date.setFullYear(end_Date.getFullYear()-10)
-	$(function () {
-		$("input.dateinput").datepicker({
-			format:'dd/mm/yyyy',
-			startDate:start_Date,
-			endDate:end_Date,
-		});
-	});
-</script>
 {% endblock %}
 
 {% load crispy_forms_tags %}

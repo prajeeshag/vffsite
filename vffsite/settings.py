@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_otp',
     'dashboard',
-    'myCrispyFields',
+    'mySmartFields',
 ]
 
 MIDDLEWARE = [
