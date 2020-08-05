@@ -33,7 +33,8 @@ class profileUpdateForm(forms.ModelForm):
 
         # self.fields['date_of_birth'].input_formats = ['%d/%m/%Y', ]
         self.fields['address'].widget.attrs['rows'] = 5
-        self.fields['date_of_birth'].widget = DatePickerInput()
+        self.fields['date_of_birth'].widget = DatePickerInput(
+            startOffset=100, endOffset=10)
 
         self.helper = FormHelper()
         self.helper.layout = Layout(

@@ -4,8 +4,9 @@
 {% load static %}
 
 {% block styles %}
-{% comment %}<link rel="stylesheet" href="{% static 'css/profile.css' %}" />{% endcomment %}
+<link rel="stylesheet" href="{% static 'registration/style.css' %}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.9/datepicker.min.css" integrity="sha512-Yog+zkte66L91S9y4tcyhCpjvzKjlBxNLW38pm9K2ukBtPN55LKl3dyGvb7ylCFmn/kFKNzN9KbnGPOnHGHxbw==" crossorigin="anonymous" />
+
 {% endblock %}
 
 {% block scripts %}
@@ -18,8 +19,15 @@
 
 <div class="content">
 	<div class="bg-white border rounded p-lg-5 p-3">
+		{% if not request.user.profile %}
+		<div class="m-4 alert alert-success"> 
+			<p class="class="text-justify"> 
+			Signed in as User: {{request.user}}. Create a profile to continue. 
+			To Sign Out <a href="/signout/"> click here </a> 
+			</p>
+		</div>
+		{% endif %}
 		{% crispy form %}
-		{% comment %}{{ form }}{% endcomment %}
 	</div>
 </div>
 

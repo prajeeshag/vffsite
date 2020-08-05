@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -15,6 +15,10 @@ from .misc import TOTPDevice
 def home(request):
     print(request.user)
     return render(request, 'registration/base.html')
+
+
+class SignoutView(LogoutView):
+    pass
 
 
 class SigninView(LoginView):

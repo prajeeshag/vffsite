@@ -3,8 +3,22 @@
 <script>
 window.addEventListener('DOMContentLoaded', function() {
 	(function($) {
+	  {% if widget.startYear %}
+		var start_Date = new Date()
+		start_Date.setFullYear(start_Date.getFullYear()-{{widget.startYear}})
+		{% endif %}
+	  {% if widget.endYear %}
+    var end_Date = new Date()
+		end_Date.setFullYear(end_Date.getFullYear()-{{widget.endYear}})
+		{% endif %}
     $("input[name='{{ widget.name }}']").datepicker({
       format:'yyyy-mm-dd',
+	  {% if widget.startYear %}
+			startDate: start_Date,
+		{% endif %}
+	  {% if widget.endYear %}
+			endDate: end_Date
+		{% endif %}
     });
 	})(jQuery);
 });
