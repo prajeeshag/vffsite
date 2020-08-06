@@ -19,7 +19,6 @@ class profileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        # fields = '__all__'
         exclude = ('user',)
 
     def __init__(self, user, *args, **kwargs):
@@ -31,7 +30,6 @@ class profileUpdateForm(forms.ModelForm):
 
         super().__init__(*args, **kwargs, instance=profile)
 
-        # self.fields['date_of_birth'].input_formats = ['%d/%m/%Y', ]
         self.fields['address'].widget.attrs['rows'] = 5
         self.fields['date_of_birth'].widget = DatePickerInput(
             startOffset=100, endOffset=10)
@@ -43,7 +41,7 @@ class profileUpdateForm(forms.ModelForm):
             RowCol('date_of_birth', 'email'),
             RowCol('address', RowCol('pincode', 'post_office', col_css='col-12')),
             RowCol('district', 'state'),
-            RowCol('jersey_size', None),
+            RowCol('role', 'jersey_size'),
             Submit('Submit', 'submit')
         )
 

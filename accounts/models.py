@@ -32,6 +32,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
+
+    ROLE_CHOICES = [
+        ('manager', _('Team Manager')),
+        ('player', _('Player'))]
+
+    role = models.CharField(_('Role'), max_length=10,
+                            choices=ROLE_CHOICES)
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     first_name = models.CharField(_('first name'), max_length=30)
@@ -60,7 +68,7 @@ class Profile(models.Model):
     email = models.EmailField(
         _('Email address'), max_length=50, blank=True, null=True, unique=True)
 
-    email_validated = models.BooleanField(default=True, editable=False)
+    email_validated = models.BooleanField(default=False, editable=False)
 
     JERSERY_SIZE_CHOICES = [
         ('XS', _('Extra small')),
@@ -72,6 +80,8 @@ class Profile(models.Model):
         ('3XL', _('Triple extra large'))]
     jersey_size = models.CharField(_('Jersey Size'), max_length=3,
                                    choices=JERSERY_SIZE_CHOICES)
+
+    approved = models.BooleanField(default=False, editable=False)
 
     def get_full_name(self):
         '''
@@ -85,3 +95,6 @@ class Profile(models.Model):
         Returns the short name for the user.
         '''
         return self.first_name
+
+    def is_approved(self):
+        return self.approved

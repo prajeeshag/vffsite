@@ -10,16 +10,17 @@ from django.template import Context
 
 @login_required()
 def profile(request):
-    if request.POST:
-        form = profileUpdateForm(
-            request.user, request.POST, files=request.FILES)
-        if form.is_valid():
-            profile = form.save()
-            form = profileUpdateForm(request.user)
-            return render(request, 'dashboard/profile.html', {'form': form})
-    elif hasattr(request.user, 'profile'):
+    if hasattr(request.user, 'profile'):
         form = profileUpdateForm(request.user)
         return render(request, 'dashboard/profile.html', {'form': form})
     else:
-        form = profileUpdateForm(request.user)
-        return render(request, 'dashboard/profileUpdate.html', {'form': form})
+        if request.POST:
+            form = profileUpdateForm(
+                request.user, request.POST, files=request.FILES)
+            if form.is_valid():
+                profile = form.save()
+                form = profileUpdateForm(request.user)
+                return render(request, 'dashboard/profile.html', {'form': form})
+        else:
+            form = profileUpdateForm(request.user)
+            return render(request, 'dashboard/profileUpdate.html', {'form': form})
