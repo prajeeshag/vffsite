@@ -18,9 +18,9 @@
 		<div class="row no-gutters">
 			<div class="col-lg-4 pt-3">
 				<div class="avatar-preview">
-					<div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+					<div id="imagePreview" style="background-image: url({% static request.user.profile.profile_picture.url %});">
 					<div class="avatar-edit">
-						<input class="editbtn" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+						<button class="editbtn" id="imageUpload"></button>
 						<label for="imageUpload" class="mdi mdi-lead-pencil"></label>
 					</div>
 					</div>
@@ -28,8 +28,8 @@
 			</div>
 			<div class="col-lg-8">
 				<div class="card card-body h-100 text-center justify-content-center border-0">
-					<h5> Kshiti Ghelani </h5>
-					<h6> Manager </h6>
+					<h5> {{ request.user.profile.get_full_name }} </h5>
+					<h6> {{ request.user.profile.role }} </h6>
 				</div>
 			</div>
 		</div>
@@ -40,18 +40,10 @@
 			<div class="col-lg-8 p-4">
 				<div class="row">
 					<div class="col-sm-6">
-						<p>User Id</p>
-					</div>
-					<div class="col-sm-6 mb-2">
-						<p class="font-weight-bold">Kshiti123</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
 						<p>Name</p>
 					</div>
 					<div class="col-sm-6 mb-2">
-						<p class="font-weight-bold">Kshiti Ghelani</p>
+						<p class="font-weight-bold">{{ request.user.profile.get_full_name }}</p>
 					</div>
 				</div>
 				<div class="row">
@@ -59,7 +51,7 @@
 						<p>Email</p>
 					</div>
 					<div class="col-sm-6 mb-2">
-						<p class="font-weight-bold">kshitighelani@gmail.com</p>
+						<p class="font-weight-bold">{{ request.user.profile.email }}</p>
 					</div>
 				</div>
 				<div class="row">
@@ -67,15 +59,7 @@
 						<p>Phone</p>
 					</div>
 					<div class="col-sm-6 mb-2">
-						<p class="font-weight-bold">123 456 7890</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						<p>Profession</p>
-					</div>
-					<div class="col-sm-6 mb-2">
-						<p class="font-weight-bold">Web Developer and Designer</p>
+						<p class="font-weight-bold">{{ request.user.phone_number }}</p>
 					</div>
 				</div>
 			</div>
